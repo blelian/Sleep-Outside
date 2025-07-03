@@ -7,10 +7,13 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  // Fix image path for correct loading in cart page
+  const imagePath = item.Image.replace("../", "/");
+
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${imagePath}"
       alt="${item.Name}"
     />
   </a>
