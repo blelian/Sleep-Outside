@@ -1,6 +1,6 @@
 // product_detail.js
 
-import ProductData from "./productData.mjs";
+import ProductData from "../productData.mjs";
 
 const apiData = new ProductData(); // No category needed for product details
 
