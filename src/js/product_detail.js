@@ -1,5 +1,3 @@
-// product_detail.js
-
 import ProductData from "../productData.mjs";
 
 const apiData = new ProductData(); // No category needed for product details
@@ -18,10 +16,10 @@ if (productId) {
 }
 
 function renderProductDetails(product) {
-  document.querySelector(".product-detail__title").innerText = product.Name;
-  document.querySelector(".product-detail__brand").innerText = product.Brand.Name;
-  document.querySelector(".product-detail__image").src = product.PrimaryLarge;
-  document.querySelector(".product-detail__image").alt = product.Name;
-  document.querySelector(".product-detail__price").innerText = `$${product.FinalPrice}`;
-  document.querySelector(".product-detail__description").innerHTML = product.DescriptionHtmlSimple;
+  document.querySelector(".product-detail__title").innerText = product.Name || "No Name";
+  document.querySelector(".product-detail__brand").innerText = product.Brand?.Name || "Unknown Brand";
+  document.querySelector(".product-detail__image").src = product.PrimaryLarge?.Url || '';
+  document.querySelector(".product-detail__image").alt = product.Name || "Product image";
+  document.querySelector(".product-detail__price").innerText = `$${product.FinalPrice ?? '0.00'}`;
+  document.querySelector(".product-detail__description").innerHTML = product.DescriptionHtmlSimple || '';
 }

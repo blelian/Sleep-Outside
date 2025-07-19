@@ -1,10 +1,16 @@
-// ProductData.mjs
-
 export default class ProductData {
+  constructor(category) {
+    this.category = category;
+  }
+
   async getData() {
-    // Fetch product data JSON file from your public folder
-    const response = await fetch('/json/tents.json');
+    // Load the JSON file based on the category parameter
+    const response = await fetch(`/json/${this.category}.json`);
+
+    // Convert the response to JSON format
     const data = await response.json();
-    return data.products; // assuming JSON has { "products": [ ... ] }
+
+    // Return the product list stored in the "Result" key of the JSON
+    return data.Result;
   }
 }
