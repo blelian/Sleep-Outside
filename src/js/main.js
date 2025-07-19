@@ -1,9 +1,5 @@
 // main.js
-import ProductList from './ProductList.mjs';
-import ProductData from './ProductData.mjs';
+import { loadHeaderFooter } from './utils.mjs';
 
-const productListElement = document.querySelector('#product-list'); // container in your HTML
-const productData = new ProductData();
+loadHeaderFooter();
 
-const productList = new ProductList('tents', productData, productListElement);
-productList.init();

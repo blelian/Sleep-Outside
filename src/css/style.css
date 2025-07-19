@@ -261,3 +261,25 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+.category-icons {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.category-icons li {
+  margin: 1rem;
+  text-align: center;
+}
+
+.category-icons img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.5em;
+}
+.logo a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}

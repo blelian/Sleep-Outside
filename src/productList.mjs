@@ -3,38 +3,32 @@
 // Template function to create HTML for each product card
 function productCardTemplate(product) {
   return `
-    <div class="product-card">
-      <h3>${product.name}</h3>
-      <img src="${product.image}" alt="${product.name}" />
-      <p>Price: $${product.price}</p>
-      <p>${product.description}</p>
-    </div>
+    <li class="product-card">
+      <a href="../product_pages/index.html?product=${product.Id}">
+        <img src="${product.Images[0]}" alt="${product.Name}" />
+        <h3 class="card__brand">${product.Brand.Name}</h3>
+        <h2 class="card__name">${product.Name}</h2>
+        <p class="product-card__price">$${product.FinalPrice}</p>
+      </a>
+    </li>
   `;
 }
 
 export default class ProductList {
   constructor(category, dataSource, listElement) {
-    this.category = category;          // e.g., 'tents'
-    this.dataSource = dataSource;      // an object with getData() method returning products array
-    this.listElement = listElement;    // the container element in DOM to render products
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
   }
 
   async init() {
-    // Fetch product data (await if dataSource.getData is async)
-    const allProducts = await this.dataSource.getData();
-
-    // Filter products by category if specified
-    this.products = this.category
-      ? allProducts.filter(p => p.category === this.category)
-      : allProducts;
-
-    // Render the filtered product list
+    // Get products directly from API (already filtered by category)
+    this.products = await this.dataSource.getData();
     this.renderList(this.products);
   }
 
   renderList(list) {
-    // Generate HTML for all products and insert into container
     const htmlStrings = list.map(productCardTemplate);
-    this.listElement.innerHTML = htmlStrings.join('');
+    this.listElement.innerHTML = htmlStrings.join("");
   }
 }
