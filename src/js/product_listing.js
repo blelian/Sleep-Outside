@@ -1,45 +1,62 @@
-// src/js/product_listing.js
-
 import ProductList from '../productList.mjs';
-import ProductData from '../productData.mjs';
-import { loadHeaderFooter, getParam } from './utils.mjs';
+import { loadHeaderFooter } from './utils.mjs';
 
 loadHeaderFooter();
 
-const category = getParam('category');
-const productListElement = document.querySelector('.product-list');
+const listEl = document.querySelector('.product-list');
 const searchInput = document.getElementById('search-input');
 
-const dataModel = new ProductData(category);
-const listView = new ProductList(category, dataModel, productListElement);
+function getCategoryFromFilename() {
+  const filename = window.location.pathname.split('/').pop(); // e.g. tents.html
+  switch (filename) {
+    case 'tents.html': return 'tents';
+    case 'backpacks.html': return 'backpacks';
+    case 'sleeping_bags.html': return 'sleeping-bags';
+    case 'hammocks.html': return 'hammocks';
+    default: return 'all';
+  }
+}
+
+const category = getCategoryFromFilename();
+const dataUrl = category === 'all' ? '/json/all.json' : `/json/${category}.json`;
+
+class ProductData {
+  constructor(url) {
+    this.url = url;
+  }
+  async getData() {
+    try {
+      const res = await fetch(this.url);
+      if (!res.ok) {
+        console.warn(`Failed to fetch ${this.url} - status: ${res.status}`);
+        return [];
+      }
+      return await res.json();
+    } catch (err) {
+      console.error('Fetch error:', err);
+      return [];
+    }
+  }
+}
+
+const dataModel = new ProductData(dataUrl);
+const listView = new ProductList(category, dataModel, listEl);
 
 listView.init().then(() => {
-  console.log("Products loaded:", listView.products);
-
-  if (!searchInput) {
-    console.warn("Search input not found!");
-    return;
-  }
-
-  searchInput.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    console.log("Searching for:", searchTerm);
-
-    const filteredProducts = listView.products.filter(product => {
-      const name = product.Name?.toLowerCase() || "";
-      const brand = product.Brand?.Name?.toLowerCase() || "";
-      return name.includes(searchTerm) || brand.includes(searchTerm);
+  if (searchInput) {
+    searchInput.addEventListener('input', e => {
+      const term = e.target.value.toLowerCase();
+      const filtered = listView.products.filter(p =>
+        (p.Name?.toLowerCase() || '').includes(term) ||
+        (p.Brand?.Name?.toLowerCase() || '').includes(term)
+      );
+      listView.renderList(filtered);
     });
-
-    console.log(`Filtered products count: ${filteredProducts.length}`);
-
-    listView.renderList(filteredProducts);
-  });
+  }
 });
 
-// Update page title
-const titleElement = document.getElementById('category-title');
-if (titleElement && category) {
-  const capitalized = category.charAt(0).toUpperCase() + category.slice(1);
-  titleElement.textContent = `Top Products: ${capitalized}`;
+const titleEl = document.getElementById('category-title');
+if (titleEl) {
+  const label = category.charAt(0).toUpperCase() + category.slice(1);
+  titleEl.textContent = `Top Products: ${label}`;
 }
