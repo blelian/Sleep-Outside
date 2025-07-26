@@ -1,0 +1,10 @@
+import{l}from"./utils-kMan6QrJ.js";function i(e){const t=e.Images?.[0]?.PrimaryMedium||e.Images?.[0]?.PrimaryLarge||e.Images?.[0]||"/images/fallback.jpg",r=e.Name||"Outdoor product";return`
+    <li class="product-card">
+      <a href="/product_pages/index.html?product=${e.Id}">
+        <img src="${t}" alt="${r}" loading="lazy" />
+        <h3 class="card__brand">${e.Brand?.Name||"Brand"}</h3>
+        <h2 class="card__name">${e.Name||"Product Name"}</h2>
+        <p class="product-card__price">$${e.FinalPrice??"N/A"}</p>
+      </a>
+    </li>
+  `}class d{constructor(t,r,s){this.category=t,this.dataSource=r,this.listElement=s}async init(){try{this.products=await this.dataSource.getData(),this.renderList(this.products)}catch(t){console.error("Error loading products:",t),this.listElement.innerHTML='<p class="error">Failed to load products. Please try again later.</p>'}}renderList(t){if(!Array.isArray(t)||t.length===0){this.listElement.innerHTML='<p class="no-results">No products found.</p>';return}const r=t.map(i);this.listElement.innerHTML=r.join("")}}l();const u=document.querySelector(".product-list"),o=document.getElementById("search-input");function m(){switch(window.location.pathname.split("/").pop()){case"tents.html":return"tents";case"backpacks.html":return"backpacks";case"sleeping_bags.html":return"sleeping-bags";case"hammocks.html":return"hammocks";default:return"all"}}const a=m(),h=a==="all"?"/json/all.json":`/json/${a}.json`;class p{constructor(t){this.url=t}async getData(){try{const t=await fetch(this.url);return t.ok?await t.json():(console.warn(`Failed to fetch ${this.url} - status: ${t.status}`),[])}catch(t){return console.error("Fetch error:",t),[]}}}const g=new p(h),n=new d(a,g,u);n.init().then(()=>{o&&o.addEventListener("input",e=>{const t=e.target.value.toLowerCase(),r=n.products.filter(s=>(s.Name?.toLowerCase()||"").includes(t)||(s.Brand?.Name?.toLowerCase()||"").includes(t));n.renderList(r)})});const c=document.getElementById("category-title");if(c){const e=a.charAt(0).toUpperCase()+a.slice(1);c.textContent=`Top Products: ${e}`}
