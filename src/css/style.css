@@ -268,3 +268,36 @@ footer {
   border-radius: 4px;  
   display: block;
 }
+.signup-cta {
+  background-color: var(--primary-color, #f0a868);
+  color: #222;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.signup-cta h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.signup-cta p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.signup-button {
+  background-color: #386641;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #6a994e;
+}

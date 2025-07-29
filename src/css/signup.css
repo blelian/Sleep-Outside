@@ -1,0 +1,160 @@
+:root {
+  --primary-color: #f0a868;
+  --accent-dark: #525b0f;
+  --accent-brown: #8a470c;
+  --gray-light: #d0d0d0;
+  --gray-dark: #303030;
+  --green: #6a994e;
+  --green-dark: #386641;
+  --red: #bc4749;
+  --white: #f5f5f5;
+  --black: #222;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  background-color: var(--gray-light);
+  position: relative; /* Needed for positioning the info modal */
+}
+
+h1 {
+  color: var(--green-dark);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin-top: 1rem;
+}
+
+.signup-form input {
+  padding: 0.5rem;
+  border: 1px solid var(--gray-dark);
+  border-radius: 4px;
+}
+
+.signup-form button {
+  background-color: var(--primary-color);
+  color: var(--black);
+  border: none;
+  padding: 0.75rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.signup-form button:hover {
+  background-color: var(--accent-brown);
+  color: var(--white);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--gray-dark);
+  color: var(--white);
+  font-size: 0.875rem;
+}
+
+/* Validation Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: 15% auto;
+  padding: 20px;
+  border: 2px solid var(--primary-color);
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.close {
+  color: var(--red);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--green-dark);
+}
+
+/* Info Modal Styles */
+.info-modal {
+  position: absolute;
+  top: 6rem;
+  right: -400px;
+  width: 300px;
+  z-index: 10;
+  transition: right 0.7s ease-in-out;
+}
+
+.info-modal.show {
+  right: 2rem;
+}
+
+.info-modal-content {
+  background-color: var(--white);
+  border: 2px solid var(--green-dark);
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--black);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.info-modal .close {
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--red);
+}
+
+.info-modal .close:hover {
+  color: var(--green-dark);
+}
+.back-home-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #386641;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-home-link:hover {
+  color: #6a994e;
+  text-decoration: underline;
+}
+
