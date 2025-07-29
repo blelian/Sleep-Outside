@@ -261,3 +261,10 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+.product-card img {
+  width: 100%;         /* fill the card width */
+  height: 180px;       /* fixed height to unify size */
+  object-fit: cover;   /* crop/scale nicely without distortion */
+  border-radius: 4px;  
+  display: block;
+}
